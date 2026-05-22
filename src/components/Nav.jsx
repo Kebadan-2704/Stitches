@@ -30,27 +30,12 @@ export default function Nav() {
       end: 'bottom bottom',
       onUpdate: (self) => {
         const scroll = self.scroll();
-        const direction = self.direction; // 1 = down, -1 = up
 
         if (scroll > 60) {
           navbar.classList.add('scrolled');
         } else {
           navbar.classList.remove('scrolled');
-          navbar.classList.remove('hidden');
-          scrollAccumulator = 0;
         }
-
-        if (direction === 1) {
-          scrollAccumulator += scroll - lastScroll;
-          if (scrollAccumulator > 200 && scroll > 200) {
-            navbar.classList.add('hidden');
-          }
-        } else {
-          scrollAccumulator = 0;
-          navbar.classList.remove('hidden');
-        }
-
-        lastScroll = scroll;
       },
     });
 
