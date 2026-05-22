@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, Suspense, lazy } from 'react'
 import { ReactLenis, useLenis } from 'lenis/react'
 import { gsap } from 'gsap'
 
@@ -6,14 +6,15 @@ import Preloader from './components/Preloader'
 import Cursor from './components/Cursor'
 import Nav from './components/Nav'
 import Hero from './components/Hero'
-import Marquee from './components/Marquee'
-import About from './components/About'
-import Services from './components/Services'
+
+const Marquee = lazy(() => import('./components/Marquee'))
+const About = lazy(() => import('./components/About'))
+const Services = lazy(() => import('./components/Services'))
 import Gallery from './components/Gallery'
-import Process from './components/Process'
+const Process = lazy(() => import('./components/Process'))
 import Testimonials from './components/Testimonials'
-import Contact from './components/Contact'
-import Footer from './components/Footer'
+const Contact = lazy(() => import('./components/Contact'))
+const Footer = lazy(() => import('./components/Footer'))
 
 function Layout() {
   const lenis = useLenis(({ scroll }) => {
@@ -39,15 +40,23 @@ function Layout() {
       <Nav />
       <main>
         <Hero />
-        <Marquee />
-        <About />
-        <Services />
+        <Suspense fallback={null}>
+          <Marquee />
+          <About />
+          <Services />
+        </Suspense>
         <Gallery />
-        <Process />
+        <Suspense fallback={null}>
+          <Process />
+        </Suspense>
         <Testimonials />
-        <Contact />
+        <Suspense fallback={null}>
+          <Contact />
+        </Suspense>
       </main>
-      <Footer />
+      <Suspense fallback={null}>
+        <Footer />
+      </Suspense>
     </>
   )
 }

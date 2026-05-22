@@ -74,7 +74,7 @@ export default function Testimonials() {
           className="testimonials-swiper"
         >
           {testimonials.map((t) => (
-            <SwiperSlide key={t.id} className="testimonial-slide">
+            <SwiperSlide key={t.id} className="testimonial-slide" style={{ width: '400px', maxWidth: '85vw' }}>
               <div className="testimonial-card">
                 <div className="t-card-glow"></div>
                 <div className="t-card-content">
@@ -85,6 +85,8 @@ export default function Testimonials() {
                       <img 
                         src={`${t.image}?v=2`} 
                         alt={t.name}
+                        loading="lazy"
+                        decoding="async"
                       />
                     </div>
                     <div className="t-author-info">

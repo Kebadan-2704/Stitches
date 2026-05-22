@@ -199,6 +199,7 @@ export default function Gallery() {
                         src={`${item.image}?v=2`}
                         alt={item.name}
                         loading="lazy"
+                        decoding="async"
                       />
                     </div>
                     <div className="gallery-overlay" data-atropos-offset="5">

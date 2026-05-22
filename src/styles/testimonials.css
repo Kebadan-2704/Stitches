@@ -102,6 +102,8 @@
   color: var(--ivory);
   line-height: 1.8;
   font-style: italic;
+  white-space: normal;
+  word-break: break-word;
 }
 
 .t-author {
