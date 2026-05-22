@@ -1,0 +1,28 @@
+/* ═══════════════════════════════════════════════════════════════
+   STITCHES — Master Stylesheet
+   Import order matters: tokens → reset → animations → components.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* Tokens & Foundation */
+@import './variables.css';
+@import './base.css';
+@import './animations.css';
+
+/* Global Components */
+@import './preloader.css';
+@import './cursor.css';
+@import './nav.css';
+
+/* Sections (in page order) */
+@import './hero.css';
+@import './marquee.css';
+@import './about.css';
+@import './services.css';
+@import './gallery.css';
+@import './process.css';
+@import './testimonials.css';
+@import './contact.css';
+@import './footer.css';
+
+/* Responsive Overrides (always last) */
+@import './responsive.css';

@@ -1,0 +1,102 @@
+/* ═══════════════════════════════════════════════════════════════
+   STITCHES — Design Tokens (Vibrant 3D Redesign)
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* ── Colour Palette (Royal Indian) ─────────────────────────── */
+  --rose:        #E91E63; /* Vibrant Magenta */
+  --rose-light:  #F06292;
+  --gold:        #FFD700; /* Bright Royal Gold */
+  --gold-light:  #FFE57F;
+  --ivory:       #FDFBF7;
+  --cream:       #FFF3E0;
+  --dark:        #001233; /* Deep Royal Blue */
+  --mid:         #0A2463;
+  --text:        #000B18;
+  --soft:        #5C6B73;
+  --white:       #FFFFFF;
+
+  /* Semantic aliases */
+  --bg-primary:   var(--dark);
+  --bg-secondary: var(--mid);
+  --bg-dark:      #000814;
+  --fg-primary:   var(--white);
+  --fg-secondary: var(--ivory);
+  --accent:       var(--rose);
+  --accent-light: var(--rose-light);
+  --highlight:    var(--gold);
+  --highlight-light: var(--gold-light);
+
+  /* Alpha variants */
+  --rose-10:  rgba(233, 30, 99, 0.10);
+  --rose-20:  rgba(233, 30, 99, 0.20);
+  --rose-50:  rgba(233, 30, 99, 0.50);
+  --gold-10:  rgba(255, 215, 0, 0.10);
+  --gold-20:  rgba(255, 215, 0, 0.20);
+  --gold-30:  rgba(255, 215, 0, 0.30);
+  --gold-50:  rgba(255, 215, 0, 0.50);
+  --dark-80:  rgba(0, 18, 51, 0.80);
+  --dark-90:  rgba(0, 18, 51, 0.90);
+  --white-05: rgba(255, 255, 255, 0.05);
+  --white-08: rgba(255, 255, 255, 0.08);
+  --white-10: rgba(255, 255, 255, 0.10);
+  --white-30: rgba(255, 255, 255, 0.30);
+  --ivory-92: rgba(253, 251, 247, 0.92);
+
+  /* ── Typography ────────────────────────────────────────────── */
+  --font-display: 'Great Vibes', cursive;
+  --font-heading: 'Cormorant Garamond', serif;
+  --font-body:    'Jost', sans-serif;
+
+  /* ── Spacing Scale (4px base) ──────────────────────────────── */
+  --space-xs:   4px;
+  --space-sm:   8px;
+  --space-md:   16px;
+  --space-lg:   24px;
+  --space-xl:   32px;
+  --space-2xl:  48px;
+  --space-3xl:  64px;
+
+  /* ── Z-Index Layers ────────────────────────────────────────── */
+  --z-cursor:     9999;
+  --z-preloader:  9998;
+  --z-menu:       9000;
+  --z-lightbox:   8000;
+  --z-toast:      7000;
+  --z-nav:        1000;
+  --z-dots:       500;
+  --z-scroll-top: 400;
+
+  /* ── Easing Functions ──────────────────────────────────────── */
+  --ease-out-expo:      cubic-bezier(0.19, 1, 0.22, 1);
+  --ease-out-quart:     cubic-bezier(0.25, 1, 0.5, 1);
+  --ease-in-out-cubic:  cubic-bezier(0.65, 0, 0.35, 1);
+
+  /* ── Transition Durations ──────────────────────────────────── */
+  --duration-fast:   0.2s;
+  --duration-normal: 0.3s;
+  --duration-slow:   0.5s;
+  --duration-slower: 0.8s;
+
+  /* ── Shadows ───────────────────────────────────────────────── */
+  --shadow-sm:    0 2px  8px  rgba(0, 18, 51, 0.16);
+  --shadow-md:    0 4px  20px rgba(0, 18, 51, 0.28);
+  --shadow-lg:    0 8px  40px rgba(0, 18, 51, 0.32);
+  --shadow-xl:    0 16px 60px rgba(0, 18, 51, 0.36);
+  --shadow-gold:  0 0  40px rgba(255, 215, 0, 0.20);
+  --shadow-rose:  0 0  40px rgba(233, 30, 99, 0.22);
+  --shadow-nav:   0 4px 30px rgba(0, 18, 51, 0.26);
+
+  /* ── Border Radius ─────────────────────────────────────────── */
+  --radius-sm:    6px;
+  --radius-md:    12px;
+  --radius-lg:    24px;
+  --radius-xl:    32px;
+  --radius-full:  9999px;
+
+  /* ── Gradients ─────────────────────────────────────────────── */
+  --gradient-rose:  linear-gradient(135deg, var(--rose), #880E4F, var(--dark));
+  --gradient-gold:  linear-gradient(90deg, var(--gold), #FFF8E1, var(--gold));
+  --gradient-dark:  linear-gradient(180deg, var(--dark), #000814);
+  --gradient-hero:  linear-gradient(180deg, #000814 0%, var(--dark) 50%, #001233 100%);
+}

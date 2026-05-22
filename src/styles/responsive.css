@@ -1,0 +1,512 @@
+/* ═══════════════════════════════════════════════════════════════
+   STITCHES — Responsive Breakpoints
+   Mobile-first overrides: 1200px → 900px → 600px
+   Plus touch-device and reduced-motion adaptations.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────
+   ≤ 1200px — Tablet Landscape / Small Desktop
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 1200px) {
+
+  /* Nav */
+  nav {
+    padding: 20px 40px;
+  }
+
+  .nav-links {
+    gap: 24px;
+  }
+
+  .nav-links a {
+    font-size: 0.72rem;
+    letter-spacing: 2px;
+  }
+
+  /* Hero */
+  .hero-title {
+    font-size: clamp(4rem, 12vw, 9rem);
+  }
+
+  .hero-cta {
+    padding: 12px 36px;
+  }
+
+  /* About */
+  #about {
+    gap: 60px;
+    padding: 80px 40px;
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+  }
+
+  .stat-number,
+  .stat-suffix {
+    font-size: 2.2rem;
+  }
+
+  /* Services */
+  .services-track {
+    padding: 0 40px;
+  }
+
+  .service-card {
+    flex: 0 0 55vw;
+  }
+
+  /* Gallery */
+  #gallery {
+    padding: 80px 40px;
+  }
+
+  /* Process */
+  #process {
+    padding: 80px 40px;
+  }
+
+  /* Testimonials */
+  #testimonials {
+    padding: 80px 40px;
+  }
+
+  /* Contact */
+  #contact {
+    gap: 60px;
+    padding: 80px 40px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 60px 40px 40px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ≤ 900px — Tablet Portrait
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+
+  /* Body — restore native cursor */
+  body {
+    cursor: auto;
+  }
+
+  /* Hide custom cursor on tablet */
+  #cursor,
+  #cursor-ring,
+  #cursor-trail {
+    display: none !important;
+  }
+
+  /* Nav — show hamburger, hide desktop links */
+  nav {
+    padding: 16px 24px;
+  }
+
+  .nav-links {
+    display: none;
+  }
+
+  .nav-menu-btn {
+    display: flex;
+  }
+
+  /* Hero */
+  .hero-title {
+    font-size: clamp(3.5rem, 10vw, 7rem);
+  }
+
+  .hero-tagline {
+    font-size: 0.65rem;
+    letter-spacing: 4px;
+  }
+
+  .hero-ctas {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .hero-cta {
+    width: 100%;
+    max-width: 280px;
+    text-align: center;
+  }
+
+  /* About — single column */
+  #about {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 60px 24px;
+  }
+
+  .about-image-card {
+    min-height: 350px;
+  }
+
+  /* Services */
+  #services {
+    padding: 60px 0;
+  }
+
+  .services-track {
+    padding: 0 24px;
+  }
+
+  .service-card {
+    flex: 0 0 75vw;
+    min-width: 280px;
+  }
+
+  /* Gallery — 2 columns */
+  #gallery {
+    padding: 60px 24px;
+  }
+
+  .gallery-grid {
+    columns: 2;
+  }
+
+  /* Process — single column, simplified */
+  #process {
+    padding: 60px 24px;
+  }
+
+  .process-step {
+    grid-template-columns: 60px 1fr;
+    gap: 20px;
+  }
+
+  .process-steps {
+    gap: 50px;
+  }
+
+  .step-number {
+    width: 52px;
+    height: 52px;
+    font-size: 1rem;
+  }
+
+  /* Testimonials */
+  #testimonials {
+    padding: 60px 24px;
+  }
+
+  .testimonials-bg-quote {
+    font-size: clamp(12rem, 20vw, 25rem);
+  }
+
+  /* Contact — single column */
+  #contact {
+    grid-template-columns: 1fr;
+    gap: 48px;
+    padding: 60px 24px;
+  }
+
+  /* Footer */
+  footer {
+    padding: 60px 24px 40px;
+  }
+
+  .footer-links {
+    gap: 20px;
+  }
+
+  .footer-logo {
+    font-size: clamp(2.4rem, 4vw, 3rem);
+  }
+
+  /* Buttons — restore default cursor */
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  .btn-submit,
+  .filter-btn,
+  .nav-menu-btn {
+    cursor: pointer;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ≤ 600px — Mobile
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 600px) {
+
+  /* Hero */
+  .hero-title {
+    font-size: clamp(3rem, 12vw, 5.5rem);
+  }
+
+  .hero-tagline {
+    font-size: 0.58rem;
+    letter-spacing: 3px;
+  }
+
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .hero-divider {
+    gap: 10px;
+  }
+
+  .hero-divider-line {
+    width: 24px;
+  }
+
+  .hero-scroll-indicator {
+    bottom: 20px;
+  }
+
+  /* Marquee */
+  .marquee-word {
+    font-size: clamp(1.1rem, 3vw, 1.4rem);
+  }
+
+  .marquee-content {
+    gap: 24px;
+  }
+
+  /* About */
+  #about {
+    padding: 48px 16px;
+  }
+
+  .section-title,
+  .section-title-center,
+  .section-title-dark,
+  .section-title-light {
+    font-size: clamp(1.8rem, 6vw, 2.8rem);
+  }
+
+  .about-stats {
+    gap: 24px;
+  }
+
+  .stat-number,
+  .stat-suffix {
+    font-size: 2rem;
+  }
+
+  .about-image-card {
+    padding: 40px 24px;
+    min-height: 300px;
+  }
+
+  .big-initial {
+    font-size: 6rem;
+  }
+
+  /* Services — full-width cards, vertical */
+  #services {
+    padding: 48px 0;
+  }
+
+  .services-track {
+    flex-direction: column;
+    padding: 0 16px;
+    gap: 20px;
+  }
+
+  .service-card {
+    flex: none;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+
+  .service-card-inner {
+    padding: 36px 24px;
+  }
+
+  /* Gallery — single column */
+  #gallery {
+    padding: 48px 16px;
+  }
+
+  .gallery-grid {
+    columns: 1;
+  }
+
+  .gallery-filters {
+    gap: 6px;
+    margin-bottom: 32px;
+  }
+
+  .filter-btn {
+    font-size: 0.58rem;
+    padding: 7px 16px;
+    letter-spacing: 2px;
+  }
+
+  /* Process */
+  #process {
+    padding: 48px 16px;
+  }
+
+  .process-step {
+    grid-template-columns: 48px 1fr;
+    gap: 16px;
+  }
+
+  .step-number {
+    width: 44px;
+    height: 44px;
+    font-size: 0.9rem;
+  }
+
+  .step-content h4 {
+    font-size: 1.15rem;
+  }
+
+  .process-steps {
+    gap: 40px;
+  }
+
+  /* Testimonials */
+  #testimonials {
+    padding: 48px 16px;
+  }
+
+  .testimonial-card {
+    padding: 28px 24px;
+    min-height: 240px;
+  }
+
+  .testimonial-text {
+    font-size: 0.95rem;
+  }
+
+  .testimonials-bg-quote {
+    font-size: 10rem;
+    top: -40px;
+    left: -20px;
+  }
+
+  /* Contact */
+  #contact {
+    padding: 48px 16px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-form h3 {
+    font-size: 1.6rem;
+  }
+
+  /* Footer */
+  footer {
+    padding: 48px 16px 32px;
+  }
+
+  .footer-logo {
+    font-size: 2.4rem;
+  }
+
+  .footer-links {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-wave {
+    height: 60px;
+  }
+
+  .footer-social {
+    gap: 12px;
+    margin-bottom: 30px;
+  }
+
+  .social-btn {
+    width: 38px;
+    height: 38px;
+    font-size: 0.9rem;
+  }
+
+  /* Fullscreen Menu */
+  .menu-item {
+    font-size: clamp(1.6rem, 6vw, 2.4rem);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Touch / Pen — no hover effects
+   ───────────────────────────────────────────────────────────── */
+@media (hover: none) {
+
+  /* Hide cursor elements */
+  #cursor,
+  #cursor-ring,
+  #cursor-trail {
+    display: none !important;
+  }
+
+  body {
+    cursor: auto;
+  }
+
+  /* Disable tilt/3d hover effects (JS also checks, but belt & suspenders) */
+  .service-card-inner {
+    transform: none !important;
+  }
+
+  /* Show overlays by default on touch since there's no hover */
+  .gallery-item-overlay {
+    opacity: 1;
+    background: linear-gradient(
+      to top,
+      var(--dark-80) 0%,
+      transparent 60%
+    );
+  }
+
+  .gallery-item-info {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Always show expand icon */
+  .gallery-item-expand {
+    opacity: 0.6;
+    transform: scale(1);
+  }
+
+  /* Restore pointer cursor */
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    cursor: pointer;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Very tall / narrow (e.g. Galaxy Fold)
+   ───────────────────────────────────────────────────────────── */
+@media (max-width: 360px) {
+
+  .hero-title {
+    font-size: clamp(2.4rem, 14vw, 4rem);
+  }
+
+  .section-title,
+  .section-title-center,
+  .section-title-dark,
+  .section-title-light {
+    font-size: clamp(1.6rem, 7vw, 2.2rem);
+  }
+
+  nav {
+    padding: 12px 16px;
+  }
+
+  .nav-logo {
+    font-size: 1.8rem;
+  }
+}

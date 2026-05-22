@@ -1,0 +1,95 @@
+/* ═══════════════════════════════════════════════════════════════
+   STITCHES — Marquee / Ticker
+   Dual-row infinite text scroll with gold separators,
+   hover-to-pause, and subtle scale on individual words.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Section ─────────────────────────────────────────────────── */
+#marquee {
+  padding: 20px 0;
+  overflow: hidden;
+  background: var(--ivory);
+  border-top: 1px solid var(--gold-20);
+  border-bottom: 1px solid var(--gold-20);
+  position: relative;
+}
+
+/* ── Row ─────────────────────────────────────────────────────── */
+.marquee-row {
+  overflow: hidden;
+  padding: 16px 0;
+  position: relative;
+}
+
+/* ── Track (scrollable strip) ────────────────────────────────── */
+.marquee-track {
+  display: flex;
+  width: max-content;
+}
+
+/* ── Content (duplicated for seamless loop) ──────────────────── */
+.marquee-content {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+  animation: marqueeScroll 30s linear infinite;
+  will-change: transform;
+}
+
+/* Reverse row */
+.marquee-reverse .marquee-content {
+  animation-name: marqueeScrollReverse;
+  animation-duration: 25s;
+}
+
+/* ── Text ────────────────────────────────────────────────────── */
+.marquee-word {
+  font-family: var(--font-heading);
+  font-size: clamp(1.4rem, 2.5vw, 2rem);
+  font-weight: 300;
+  color: var(--text);
+  opacity: 0.4;
+  white-space: nowrap;
+  transition: opacity var(--duration-normal) var(--ease-out-quart),
+              transform var(--duration-normal) var(--ease-out-quart);
+}
+
+/* ── Gold Dot Separator ──────────────────────────────────────── */
+.marquee-dot {
+  color: var(--gold);
+  opacity: 0.8;
+  font-size: 0.6rem;
+  flex-shrink: 0;
+}
+
+/* ── Hover: Pause + highlight ────────────────────────────────── */
+.marquee-row:hover .marquee-content {
+  animation-play-state: paused;
+}
+
+.marquee-word:hover {
+  opacity: 0.9;
+  transform: scale(1.05);
+}
+
+/* ── Fade edges ──────────────────────────────────────────────── */
+.marquee-row::before,
+.marquee-row::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.marquee-row::before {
+  left: 0;
+  background: linear-gradient(to right, var(--ivory), transparent);
+}
+
+.marquee-row::after {
+  right: 0;
+  background: linear-gradient(to left, var(--ivory), transparent);
+}

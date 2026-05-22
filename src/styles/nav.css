@@ -1,0 +1,254 @@
+/* ═══════════════════════════════════════════════════════════════
+   STITCHES — Navigation
+   Fixed transparent nav → glassmorphism on scroll.
+   Hamburger morph. Fullscreen overlay menu.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Main Nav Bar ────────────────────────────────────────────── */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  z-index: var(--z-nav);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 60px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 0;
+  transition: all var(--duration-normal) var(--ease-out-expo);
+}
+
+/* ── Scrolled State (Floating Glass Pill) ──────────────────────────── */
+nav.scrolled {
+  top: 20px;
+  width: 92%;
+  max-width: 1200px;
+  border-radius: 50px;
+  background: rgba(8, 4, 12, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 215, 0, 0.15);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5), 
+              inset 0 1px 1px rgba(255, 255, 255, 0.08);
+  padding: 12px 40px;
+}
+
+/* ── Hidden State (scroll-down hide) ─────────────────────────── */
+nav.hidden {
+  transform: translateY(-150%);
+  opacity: 0;
+}
+
+/* ── Logo ────────────────────────────────────────────────────── */
+.nav-logo {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 2.2rem;
+  color: var(--rose);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition-normal);
+  position: relative;
+  z-index: calc(var(--z-menu) + 1);
+  text-shadow: 0 0 15px rgba(233, 30, 99, 0.4);
+}
+
+.nav-logo:hover {
+  color: var(--rose-light);
+  text-shadow: 0 0 25px rgba(233, 30, 99, 0.7);
+}
+
+/* When menu open, ensure logo is visible on dark bg */
+.nav-logo.menu-open {
+  color: var(--gold);
+  text-shadow: none;
+}
+
+/* ── Desktop Links ───────────────────────────────────────────── */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 12px; /* reduced gap since we use pill padding */
+}
+
+.nav-links a {
+  font-family: var(--font-body);
+  font-weight: 400;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--white);
+  padding: 8px 18px;
+  border-radius: 30px;
+  position: relative;
+  transition: all 0.3s var(--ease-out-quart);
+  border: 1px solid transparent;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: var(--gold);
+  background: rgba(255, 215, 0, 0.08);
+  border: 1px solid rgba(255, 215, 0, 0.2);
+  box-shadow: 0 0 15px rgba(255, 215, 0, 0.05);
+}
+
+/* ── Hamburger Button ────────────────────────────────────────── */
+.nav-menu-btn {
+  display: none;             /* Hidden on desktop */
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 36px;
+  height: 36px;
+  position: relative;
+  z-index: calc(var(--z-menu) + 1);
+  cursor: none;
+}
+
+.nav-menu-btn .line {
+  display: block;
+  width: 24px;
+  height: 1.5px;
+  background: var(--white);
+  border-radius: 2px;
+  transition: transform var(--duration-normal) var(--ease-out-expo),
+              opacity var(--duration-normal) var(--ease-out-expo),
+              background var(--duration-normal) var(--ease-out-expo);
+  transform-origin: center;
+}
+
+/* X morph */
+.nav-menu-btn.active .line {
+  background: var(--gold);
+}
+
+.nav-menu-btn.active .line:nth-child(1) {
+  transform: translateY(7.5px) rotate(45deg);
+}
+
+.nav-menu-btn.active .line:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+
+.nav-menu-btn.active .line:nth-child(3) {
+  transform: translateY(-7.5px) rotate(-45deg);
+}
+
+/* ── Fullscreen Overlay Menu ─────────────────────────────────── */
+.fullscreen-menu {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-menu);
+  background: var(--dark);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--duration-slow) var(--ease-out-expo),
+              visibility var(--duration-slow) var(--ease-out-expo);
+}
+
+.fullscreen-menu.open {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ── Menu Items ──────────────────────────────────────────────── */
+.menu-item {
+  font-family: var(--font-heading);
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 300;
+  color: var(--white);
+  position: relative;
+  padding: 8px 0;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity var(--duration-slow) var(--ease-out-expo),
+              transform var(--duration-slow) var(--ease-out-expo),
+              color var(--duration-normal) var(--ease-out-quart);
+}
+
+/* Stagger reveal — JS adds inline transition-delay or use nth-child */
+.fullscreen-menu.open .menu-item {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fullscreen-menu.open .menu-item:nth-child(1) { transition-delay: 0.1s; }
+.fullscreen-menu.open .menu-item:nth-child(2) { transition-delay: 0.18s; }
+.fullscreen-menu.open .menu-item:nth-child(3) { transition-delay: 0.26s; }
+.fullscreen-menu.open .menu-item:nth-child(4) { transition-delay: 0.34s; }
+.fullscreen-menu.open .menu-item:nth-child(5) { transition-delay: 0.42s; }
+.fullscreen-menu.open .menu-item:nth-child(6) { transition-delay: 0.50s; }
+.fullscreen-menu.open .menu-item:nth-child(7) { transition-delay: 0.58s; }
+
+.menu-item:hover {
+  color: var(--gold);
+}
+
+.menu-item::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translateX(-50%) scaleX(0);
+  width: 60%;
+  height: 1px;
+  background: var(--gold);
+  transition: transform var(--duration-slow) var(--ease-out-expo);
+}
+
+.menu-item:hover::after {
+  transform: translateX(-50%) scaleX(1);
+}
+
+/* ── Menu Footer ─────────────────────────────────────────────── */
+.menu-footer {
+  position: absolute;
+  bottom: 40px;
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  opacity: 0;
+  transition: opacity var(--duration-slow) var(--ease-out-expo) 0.5s;
+}
+
+.fullscreen-menu.open .menu-footer {
+  opacity: 1;
+}
+
+.menu-footer a {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--soft);
+  transition: color var(--duration-normal) var(--ease-out-quart);
+}
+
+.menu-footer a:hover {
+  color: var(--gold);
+}
+
+/* ── Menu Grain Overlay ──────────────────────────────────────── */
+.menu-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: grain 8s steps(10) infinite;
+}

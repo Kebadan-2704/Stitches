@@ -1,0 +1,122 @@
+/* ═══════════════════════════════════════════════════════════════
+   STITCHES — Custom Cursor
+   Dot cursor + ring follower + canvas trail. Hidden on touch
+   devices. Includes hover and click interaction states.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Cursor Dot ──────────────────────────────────────────────── */
+#cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--rose);
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  transform: translate(-50%, -50%);
+  transition: width var(--duration-normal) var(--ease-out-expo),
+              height var(--duration-normal) var(--ease-out-expo),
+              background-color var(--duration-normal) var(--ease-out-expo),
+              opacity var(--duration-normal) var(--ease-out-expo);
+  mix-blend-mode: difference;
+  will-change: transform;
+}
+
+/* ── Cursor Ring ─────────────────────────────────────────────── */
+#cursor-ring {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  pointer-events: none;
+  z-index: var(--z-cursor);
+  transform: translate(-50%, -50%);
+  transition: width var(--duration-slow) var(--ease-out-expo),
+              height var(--duration-slow) var(--ease-out-expo),
+              border-color var(--duration-normal) var(--ease-out-expo),
+              background-color var(--duration-normal) var(--ease-out-expo),
+              opacity var(--duration-normal) var(--ease-out-expo);
+  opacity: 0.6;
+  will-change: transform;
+}
+
+/* ── Cursor Trail Canvas ─────────────────────────────────────── */
+#cursor-trail {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: calc(var(--z-cursor) - 1);
+}
+
+/* ── Hover State ─────────────────────────────────────────────── */
+#cursor.cursor-hover {
+  width: 25px;
+  height: 25px;
+  background-color: var(--gold);
+  mix-blend-mode: normal;
+}
+
+#cursor-ring.cursor-hover {
+  width: 50px;
+  height: 50px;
+  border-color: var(--gold);
+  opacity: 0.3;
+}
+
+/* ── Click State ─────────────────────────────────────────────── */
+#cursor.cursor-click {
+  width: 8px;
+  height: 8px;
+}
+
+#cursor-ring.cursor-click {
+  width: 28px;
+  height: 28px;
+  opacity: 0.8;
+}
+
+/* ── Text Hover (links, buttons) ─────────────────────────────── */
+#cursor.cursor-text {
+  width: 4px;
+  height: 30px;
+  border-radius: 2px;
+  background-color: var(--gold);
+  mix-blend-mode: normal;
+}
+
+#cursor-ring.cursor-text {
+  opacity: 0;
+}
+
+/* ── Hidden (e.g. when off-screen) ───────────────────────────── */
+#cursor.cursor-hidden,
+#cursor-ring.cursor-hidden {
+  opacity: 0;
+}
+
+/* ── Touch / Pen Devices — hide everything ───────────────────── */
+@media (hover: none), (pointer: coarse) {
+  #cursor,
+  #cursor-ring,
+  #cursor-trail {
+    display: none !important;
+  }
+
+  /* Restore native cursor */
+  body {
+    cursor: auto;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    cursor: auto;
+  }
+}

@@ -1,0 +1,170 @@
+/* ═══════════════════════════════════════════════════════════════
+   STITCHES — Shared Keyframes
+   Every reusable animation lives here. Section-specific CSS
+   references these by name.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Reveal Animations ───────────────────────────────────────── */
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(60px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* ── Decorative / Looping ────────────────────────────────────── */
+
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-16px); }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes grain {
+  0%, 100% { background-position: 0 0; }
+  10%      { background-position: -5% -10%; }
+  20%      { background-position: -15% 5%; }
+  30%      { background-position: 7% -25%; }
+  40%      { background-position: -5% 25%; }
+  50%      { background-position: -15% 10%; }
+  60%      { background-position: 15% 0; }
+  70%      { background-position: 0 15%; }
+  80%      { background-position: 3% 35%; }
+  90%      { background-position: -10% 10%; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ── Marquee ─────────────────────────────────────────────────── */
+
+@keyframes marqueeScroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marqueeScrollReverse {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* ── Wave / Gradient ─────────────────────────────────────────── */
+
+@keyframes waveFloat {
+  0%, 100% { transform: translateY(0) translateX(0); }
+  25%      { transform: translateY(-6px) translateX(4px); }
+  50%      { transform: translateY(4px) translateX(-3px); }
+  75%      { transform: translateY(-3px) translateX(6px); }
+}
+
+@keyframes gradientShift {
+  0%   { background-position: 0% 50%; }
+  25%  { background-position: 100% 50%; }
+  50%  { background-position: 100% 100%; }
+  75%  { background-position: 0% 100%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ── SVG Path Drawing ────────────────────────────────────────── */
+
+@keyframes strokeFill {
+  from {
+    stroke-dashoffset: var(--dash-length, 1000);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── Ken Burns (Gallery) ─────────────────────────────────────── */
+
+@keyframes kenBurns {
+  0% {
+    transform: scale(1) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.08) translate(-1%, -1%);
+  }
+}
+
+/* ── Preloader Needle ────────────────────────────────────────── */
+
+@keyframes needleDraw {
+  from {
+    stroke-dashoffset: var(--needle-length, 200);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ── Scroll Indicator Bounce ─────────────────────────────────── */
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 1; }
+  50%      { transform: translateY(8px); opacity: 0.4; }
+}

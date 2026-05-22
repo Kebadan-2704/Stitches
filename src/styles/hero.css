@@ -1,0 +1,256 @@
+/* ═══════════════════════════════════════════════════════════════
+   STITCHES — Hero Section (Vibrant 3D Redesign)
+   ═══════════════════════════════════════════════════════════════ */
+
+.dynamic-hero {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--gradient-hero);
+}
+
+#hero-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.hero-bg-layers {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero-bg-1 {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 60% 50% at 70% 20%, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
+}
+
+.hero-bg-2 {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 50% 60% at 20% 80%, rgba(233, 30, 99, 0.2) 0%, transparent 70%);
+}
+
+.hero-bg-3 {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 50%, rgba(0, 18, 51, 0.5) 0%, transparent 60%);
+}
+
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  opacity: 0.08;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: grain 8s steps(10) infinite;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 var(--space-lg);
+  max-width: 900px;
+}
+
+.hero-tagline {
+  font-family: var(--font-body);
+  font-weight: 200;
+  font-size: 0.8rem;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: var(--space-lg);
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease-out-expo) 2.8s forwards;
+}
+
+.hero-title {
+  font-family: var(--font-display);
+  font-size: clamp(6rem, 16vw, 12rem);
+  font-weight: 400;
+  color: var(--white);
+  line-height: 0.95;
+  margin-bottom: var(--space-md);
+  text-shadow: 0 10px 40px rgba(233, 30, 99, 0.3);
+  opacity: 0;
+  animation: fadeUp 1s var(--ease-out-expo) 3s forwards;
+}
+
+.hero-subtitle-wrap {
+  min-height: 2.5rem;
+  margin-bottom: var(--space-xl);
+  opacity: 0;
+  animation: fadeIn 0.8s var(--ease-out-expo) 3.4s forwards;
+}
+
+.hero-subtitle-wrap span {
+  font-family: var(--font-heading);
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  font-weight: 300;
+  color: var(--gold-light);
+  letter-spacing: 2px;
+}
+
+.typed-cursor {
+  color: var(--gold) !important;
+  font-weight: 300;
+  font-size: 1.5rem;
+  opacity: 1;
+  animation: pulse 1s infinite;
+}
+
+.hero-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: var(--space-2xl);
+  opacity: 0;
+  animation: fadeIn 0.8s var(--ease-out-expo) 3.6s forwards;
+}
+
+.hero-div-line {
+  width: 60px;
+  height: 1px;
+  background: var(--gold-30);
+}
+
+.hero-div-text {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold-50);
+}
+
+.hero-ctas {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  justify-content: center;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease-out-expo) 3.8s forwards;
+}
+
+.hero-cta {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px 54px;
+  border: 1px solid var(--gold);
+  background: rgba(255, 215, 0, 0.05);
+  backdrop-filter: blur(8px);
+  color: var(--gold);
+  font-family: var(--font-body);
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-full);
+  transition: all var(--duration-normal) var(--ease-out-quart);
+}
+
+.hero-cta:hover {
+  background: var(--gold);
+  color: var(--dark);
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+}
+
+.hero-cta:active {
+  transform: translateY(0);
+}
+
+.hero-cta-solid {
+  background: var(--rose);
+  border-color: var(--rose);
+  color: var(--white);
+}
+
+.hero-cta-solid:hover {
+  background: var(--rose-light);
+  border-color: var(--rose-light);
+  color: var(--white);
+  box-shadow: 0 10px 30px rgba(233, 30, 99, 0.4);
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  opacity: 0;
+  animation: fadeIn 0.8s var(--ease-out-expo) 4.2s forwards;
+}
+
+.hero-scroll-indicator span {
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  color: var(--gold-50);
+}
+
+.scroll-line-wrap {
+  width: 2px;
+  height: 48px;
+  background: rgba(255, 215, 0, 0.1);
+  overflow: hidden;
+  border-radius: 2px;
+}
+
+.scroll-line-inner {
+  width: 100%;
+  height: 100%;
+  background: var(--gold);
+  transform: translateY(-100%);
+}
+
+/* ═══════════ STITCHING ANIMATION ═══════════ */
+.hero-stitches-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.stitch-thread {
+  fill: none;
+  stroke: rgba(201, 169, 110, 0.5); /* Gold */
+  stroke-width: 2;
+  stroke-dasharray: 12 12;
+  stroke-linecap: round;
+  animation: sewThread linear infinite;
+}
+
+.thread-1 { animation-duration: 15s; }
+.thread-2 { animation-duration: 20s; stroke: rgba(233, 30, 99, 0.5); /* Rose */ }
+.thread-3 { animation-duration: 25s; stroke: rgba(201, 169, 110, 0.3); }
+
+@keyframes sewThread {
+  from { stroke-dashoffset: 1000; }
+  to { stroke-dashoffset: 0; }
+}

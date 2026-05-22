@@ -1,0 +1,191 @@
+/* ═══════════════════════════════════════════════════════════════
+   STITCHES — Footer
+   Dark footer with wave SVG overlap, floating particles,
+   Great Vibes logo, links, social icons, and copyright.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Footer Container ────────────────────────────────────────── */
+footer {
+  background: var(--dark);
+  position: relative;
+  padding: 80px 60px 60px;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* ── Wave SVG Overlap ────────────────────────────────────────── */
+.footer-wave {
+  position: absolute;
+  top: -2px;
+  left: 0;
+  right: 0;
+  height: 120px;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.footer-wave svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.wave-path {
+  fill: var(--dark);
+}
+
+.wave-1 {
+  opacity: 0.8;
+  animation: waveFloat 8s ease-in-out infinite;
+}
+
+.wave-2 {
+  opacity: 0.5;
+  animation: waveFloat 12s ease-in-out infinite reverse;
+}
+
+/* ── Floating Particles ──────────────────────────────────────── */
+.footer-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.footer-particle {
+  position: absolute;
+  background: var(--gold);
+  border-radius: 50%;
+  opacity: 0.3;
+  animation: float var(--particle-duration, 6s) ease-in-out infinite;
+  animation-delay: var(--particle-delay, 0s);
+}
+
+/* Particle size variants */
+.footer-particle--sm { width: 2px; height: 2px; }
+.footer-particle--md { width: 3px; height: 3px; }
+.footer-particle--lg { width: 4px; height: 4px; }
+
+/* ── Footer Content ──────────────────────────────────────────── */
+.footer-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Logo ────────────────────────────────────────────────────── */
+.footer-logo {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 5vw, 4rem);
+  color: var(--gold);
+  line-height: 1.1;
+  margin-bottom: var(--space-md);
+  display: inline-block;
+  transition: color var(--duration-normal) var(--ease-out-quart),
+              -webkit-text-stroke var(--duration-normal) var(--ease-out-quart);
+  -webkit-text-stroke: 1px var(--gold);
+  -webkit-text-fill-color: transparent;
+}
+
+.footer-logo:hover {
+  -webkit-text-fill-color: var(--gold);
+}
+
+/* ── Tagline ─────────────────────────────────────────────────── */
+.footer-tagline {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--ivory);
+  opacity: 0.4;
+  margin-bottom: 36px;
+  letter-spacing: 0.5px;
+}
+
+/* ── Links ───────────────────────────────────────────────────── */
+.footer-links {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.footer-links a {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--ivory);
+  opacity: 0.3;
+  transition: color var(--duration-normal) var(--ease-out-quart),
+              opacity var(--duration-normal) var(--ease-out-quart);
+}
+
+.footer-links a:hover {
+  color: var(--gold);
+  opacity: 1;
+}
+
+/* ── Social Icons ────────────────────────────────────────────── */
+.footer-social {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  margin-bottom: 40px;
+}
+
+.social-btn {
+  width: 42px;
+  height: 42px;
+  border: 1px solid var(--gold-30);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold);
+  opacity: 0.5;
+  font-size: 1rem;
+  transition: background var(--duration-normal) var(--ease-out-quart),
+              border-color var(--duration-normal) var(--ease-out-quart),
+              color var(--duration-normal) var(--ease-out-quart),
+              opacity var(--duration-normal) var(--ease-out-quart),
+              transform var(--duration-normal) var(--ease-out-quart);
+}
+
+.social-btn:hover {
+  background: var(--rose);
+  border-color: var(--rose);
+  color: var(--white);
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+.social-btn:active {
+  transform: translateY(-1px);
+}
+
+/* ── Copyright ───────────────────────────────────────────────── */
+.footer-copy {
+  font-family: var(--font-body);
+  font-size: 0.65rem;
+  font-weight: 200;
+  color: var(--ivory);
+  opacity: 0.2;
+  letter-spacing: 1px;
+}
+
+/* ── Footer Grain ────────────────────────────────────────────── */
+.footer-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  animation: grain 8s steps(10) infinite;
+}

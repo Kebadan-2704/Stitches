@@ -1,0 +1,162 @@
+/* ═══════════════════════════════════════════════════════════════
+   STITCHES — Process / Timeline
+   Vertical timeline with numbered step markers, SVG connector
+   line, and opacity-based active state controlled by GSAP
+   ScrollTrigger.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── Section ─────────────────────────────────────────────────── */
+#process {
+  background: var(--cream);
+  padding: 100px 60px;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── Timeline Container ──────────────────────────────────────── */
+.process-timeline {
+  position: relative;
+  margin-top: 60px;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ── SVG Connector Line ──────────────────────────────────────── */
+.timeline-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.timeline-svg line,
+.timeline-svg path {
+  stroke: var(--gold-20);
+  stroke-width: 1;
+  fill: none;
+}
+
+.timeline-svg .timeline-progress {
+  stroke: var(--gold);
+  stroke-width: 1.5;
+  fill: none;
+  stroke-dasharray: var(--timeline-length, 1000);
+  stroke-dashoffset: var(--timeline-length, 1000);
+  transition: stroke-dashoffset 0.6s var(--ease-out-expo);
+}
+
+/* ── Steps Grid ──────────────────────────────────────────────── */
+.process-steps {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 80px;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Individual Step ─────────────────────────────────────────── */
+.process-step {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 30px;
+  align-items: start;
+  opacity: 0.3;
+  transition: opacity var(--duration-slow) var(--ease-out-expo);
+}
+
+.process-step.active {
+  opacity: 1;
+}
+
+/* ── Step Marker ─────────────────────────────────────────────── */
+.step-marker {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.step-number {
+  width: 64px;
+  height: 64px;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: var(--gold);
+  background: var(--cream);
+  position: relative;
+  z-index: 1;
+  transition: background var(--duration-normal) var(--ease-out-quart),
+              border-color var(--duration-normal) var(--ease-out-quart),
+              color var(--duration-normal) var(--ease-out-quart),
+              box-shadow var(--duration-normal) var(--ease-out-quart);
+}
+
+.process-step.active .step-number {
+  background: var(--rose);
+  border-color: var(--rose);
+  color: var(--white);
+  box-shadow: 0 0 20px var(--rose-20);
+}
+
+/* Pulse ring on active */
+.step-pulse {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--gold);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.process-step.active .step-pulse {
+  animation: pulse 2s var(--ease-out-expo) infinite;
+}
+
+/* ── Step Content ────────────────────────────────────────────── */
+.step-content {
+  padding-top: 8px;
+}
+
+.step-content h4 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: var(--dark);
+  margin-bottom: var(--space-sm);
+  line-height: 1.3;
+}
+
+.step-content p {
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 300;
+  color: var(--soft);
+  line-height: 1.8;
+}
+
+/* ── Connector dots between steps ────────────────────────────── */
+.step-connector {
+  position: absolute;
+  left: 31px; /* center of 64px marker */
+  top: 64px;
+  width: 1px;
+  height: calc(100% + 16px);
+  background: linear-gradient(to bottom, var(--gold-20), transparent);
+  z-index: 0;
+}
+
+.process-step:last-child .step-connector {
+  display: none;
+}
