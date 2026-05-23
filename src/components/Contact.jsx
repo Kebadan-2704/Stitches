@@ -109,10 +109,17 @@ export default function Contact() {
     
     const requiredFields = ['name', 'phone', 'occasion', 'style'];
     requiredFields.forEach(field => {
-      if (!formData[field].trim()) {
+      if (!formData[field] || !formData[field].trim()) {
         isValid = false;
         const el = document.getElementById(`form-${field}`);
         showFieldError(field, el);
+      } else if (field === 'phone') {
+        const phoneRegex = /^[+]?[\d\s-]{10,15}$/;
+        if (!phoneRegex.test(formData[field].trim())) {
+          isValid = false;
+          const el = document.getElementById(`form-${field}`);
+          showFieldError(field, el);
+        }
       }
     });
 
@@ -200,16 +207,18 @@ export default function Contact() {
             <div className="form-row">
               <div className={getInputClass('name')} data-reveal="true">
                 <label htmlFor="form-name">Your Name</label>
-                <input type="text" id="form-name" name="name" placeholder="Priya Sharma" value={formData.name} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required />
+                <input type="text" id="form-name" name="name" placeholder="Priya Sharma" value={formData.name} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required aria-invalid={!!errors.name} aria-describedby={errors.name ? "name-error" : undefined} />
+                {errors.name && <span id="name-error" className="error-message" style={{color: '#ff4d4d', fontSize: '0.8rem', marginTop: '0.2rem', display: 'block'}}>Name is required</span>}
               </div>
               <div className={getInputClass('phone')} data-reveal="true">
                 <label htmlFor="form-phone">Phone / WhatsApp</label>
-                <input type="tel" id="form-phone" name="phone" placeholder="+91 98765 43210" value={formData.phone} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required />
+                <input type="tel" id="form-phone" name="phone" placeholder="+91 98765 43210" value={formData.phone} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required aria-invalid={!!errors.phone} aria-describedby={errors.phone ? "phone-error" : undefined} />
+                {errors.phone && <span id="phone-error" className="error-message" style={{color: '#ff4d4d', fontSize: '0.8rem', marginTop: '0.2rem', display: 'block'}}>Valid phone number required</span>}
               </div>
             </div>
             <div className={getInputClass('occasion')} data-reveal="true">
               <label htmlFor="form-occasion">Occasion</label>
-              <select id="form-occasion" name="occasion" value={formData.occasion} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required>
+              <select id="form-occasion" name="occasion" value={formData.occasion} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required aria-invalid={!!errors.occasion} aria-describedby={errors.occasion ? "occasion-error" : undefined}>
                 <option value="" disabled>Select occasion type</option>
                 <option value="Wedding / Bridal">Wedding / Bridal</option>
                 <option value="Bridesmaid / Group Set">Bridesmaid / Group Set</option>
@@ -218,16 +227,18 @@ export default function Contact() {
                 <option value="Casual / Everyday">Casual / Everyday</option>
                 <option value="Other">Other</option>
               </select>
+              {errors.occasion && <span id="occasion-error" className="error-message" style={{color: '#ff4d4d', fontSize: '0.8rem', marginTop: '0.2rem', display: 'block'}}>Please select an occasion</span>}
             </div>
             <div className={getInputClass('style')} data-reveal="true">
               <label htmlFor="form-style">Style Preference</label>
-              <select id="form-style" name="style" value={formData.style} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required>
+              <select id="form-style" name="style" value={formData.style} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required aria-invalid={!!errors.style} aria-describedby={errors.style ? "style-error" : undefined}>
                 <option value="" disabled>Indian / Western / Fusion?</option>
                 <option value="Indian Traditional">Indian Traditional</option>
                 <option value="Western">Western</option>
                 <option value="Indo-Western Fusion">Indo-Western Fusion</option>
                 <option value="Not sure — need guidance">Not sure — need guidance</option>
               </select>
+              {errors.style && <span id="style-error" className="error-message" style={{color: '#ff4d4d', fontSize: '0.8rem', marginTop: '0.2rem', display: 'block'}}>Please select a style</span>}
             </div>
             <div className={getInputClass('message')} data-reveal="true">
               <label htmlFor="form-message">Tell Us More</label>

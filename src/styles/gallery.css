@@ -13,7 +13,7 @@
   margin-bottom: var(--space-2xl);
 }
 
-.section-label {
+.dynamic-gallery .section-label {
   display: inline-flex;
   align-items: center;
   gap: 12px;
@@ -25,7 +25,7 @@
   color: var(--gold);
 }
 
-.section-title {
+.dynamic-gallery .section-title {
   font-family: var(--font-heading);
   font-size: clamp(2.4rem, 5vw, 4rem);
   font-weight: 300;
@@ -35,7 +35,7 @@
   margin-bottom: var(--space-lg);
 }
 
-.section-title em {
+.dynamic-gallery .section-title em {
   font-style: italic;
   color: var(--rose-light);
 }
@@ -68,7 +68,7 @@
   border: 1px solid rgba(255, 215, 0, 0.3);
   color: var(--gold);
   background: transparent;
-  cursor: none;
+  cursor: pointer;
   border-radius: var(--radius-full);
   transition: all var(--duration-normal) var(--ease-out-quart);
   position: relative;

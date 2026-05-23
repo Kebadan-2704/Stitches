@@ -13,12 +13,14 @@ gsap.registerPlugin(ScrollTrigger);
 const isReducedMotion = () => window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 const testimonials = [
-  { id: 1, name: 'Ananya S.', role: 'Bride', text: 'Stitches brought my dream bridal lehenga to life. The attention to detail and the fit were absolutely perfect. I felt like royalty on my big day.', image: '/testimonials/t1.png?v=1' },
-  { id: 2, name: 'Meera R.', role: 'Client', text: 'I needed a custom gown for a cocktail party within a week. Lidya and her team not only delivered on time but the craftsmanship was beyond my expectations.', image: '/testimonials/t2.png?v=1' },
-  { id: 3, name: 'Kavya T.', role: 'Bridesmaid', text: 'We got our entire bridesmaid squad outfits stitched here. The color coordination and the modern cuts were exactly what we had pinned on Pinterest!', image: '/testimonials/t3.png?v=1' },
-  { id: 4, name: 'Priya M.', role: 'Client', text: 'The fusion wear collection is stunning. I got an Indo-Western set that fits like a glove. Have been getting compliments every time I wear it.', image: '/testimonials/t4.png?v=1' },
-  { id: 5, name: 'Sneha K.', role: 'Bride', text: 'From the first sketch to the final fitting, the experience was magical. The embroidery work on my reception gown was breathtaking.', image: '/testimonials/t5.png?v=1' }
+  { id: 1, name: 'Ananya S.', role: 'Bride', text: 'Stitches brought my dream bridal lehenga to life. The attention to detail and the fit were absolutely perfect. I felt like royalty on my big day.', image: '/gallery/img-1.webp' },
+  { id: 2, name: 'Meera R.', role: 'Client', text: 'I needed a custom gown for a cocktail party within a week. Lidya and her team not only delivered on time but the craftsmanship was beyond my expectations.', image: '/gallery/img-2.webp' },
+  { id: 3, name: 'Kavya T.', role: 'Bridesmaid', text: 'We got our entire bridesmaid squad outfits stitched here. The color coordination and the modern cuts were exactly what we had pinned on Pinterest!', image: '/gallery/img-3.webp' },
+  { id: 4, name: 'Priya M.', role: 'Client', text: 'The fusion wear collection is stunning. I got an Indo-Western set that fits like a glove. Have been getting compliments every time I wear it.', image: '/gallery/img-4.webp' },
+  { id: 5, name: 'Sneha K.', role: 'Bride', text: 'From the first sketch to the final fitting, the experience was magical. The embroidery work on my reception gown was breathtaking.', image: '/gallery/img-5.webp' }
 ];
+
+const doubledTestimonials = [...testimonials, ...testimonials.map(t => ({...t, id: t.id + 5}))];
 
 export default function Testimonials() {
   const containerRef = useRef(null);
@@ -73,7 +75,7 @@ export default function Testimonials() {
           pagination={{ clickable: true }}
           className="testimonials-swiper"
         >
-          {testimonials.map((t) => (
+          {doubledTestimonials.map((t) => (
             <SwiperSlide key={t.id} className="testimonial-slide" style={{ width: '400px', maxWidth: '85vw' }}>
               <div className="testimonial-card">
                 <div className="t-card-glow"></div>

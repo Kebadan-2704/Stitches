@@ -5,23 +5,24 @@ import { Flip } from 'gsap/Flip';
 import { useGSAP } from '@gsap/react';
 import Atropos from 'atropos/react';
 import 'atropos/css';
+import FocusTrap from 'focus-trap-react';
 import { isReducedMotion } from '../js/utils';
 
 gsap.registerPlugin(ScrollTrigger, Flip);
 
 const galleryItems = [
-  { id: 1, name: 'Emerald Lehenga', category: 'indian', image: '/gallery/img-1.png', color: '#2E7D32' },
-  { id: 2, name: 'Silk Gown', category: 'gown', image: '/gallery/img-2.png', color: '#8B2252' },
-  { id: 3, name: 'Fusion Saree Dress', category: 'fusion', image: '/gallery/img-3.png', color: '#C9A96E' },
-  { id: 4, name: 'A-Line Midi', category: 'western', image: '/gallery/img-4.png', color: '#5C3348' },
-  { id: 5, name: 'Bridal Lehenga', category: 'indian', image: '/gallery/img-5.png', color: '#C2185B' },
-  { id: 6, name: 'Evening Gown', category: 'gown', image: '/gallery/img-6.png', color: '#1A0A0F' },
-  { id: 7, name: 'Indo-Western Set', category: 'fusion', image: '/gallery/img-7.png', color: '#9B7B8A' },
-  { id: 8, name: 'Tiered Frock', category: 'western', image: '/gallery/img-8.png', color: '#E8D5A3' },
-  { id: 9, name: 'Churidar Set', category: 'indian', image: '/gallery/img-9.png', color: '#3A1F2A' },
-  { id: 10, name: 'Cocktail Gown', category: 'gown', image: '/gallery/img-10.png', color: '#8B2252' },
-  { id: 11, name: 'Fusion Anarkali', category: 'fusion', image: '/gallery/img-11.png', color: '#C9A96E' },
-  { id: 12, name: 'Party Dress', category: 'western', image: '/gallery/img-12.png', color: '#5C3348' },
+  { id: 1, name: 'Emerald Lehenga', category: 'indian', image: '/gallery/img-1.webp', color: '#2E7D32' },
+  { id: 2, name: 'Silk Gown', category: 'gown', image: '/gallery/img-2.webp', color: '#8B2252' },
+  { id: 3, name: 'Fusion Saree Dress', category: 'fusion', image: '/gallery/img-3.webp', color: '#C9A96E' },
+  { id: 4, name: 'A-Line Midi', category: 'western', image: '/gallery/img-4.webp', color: '#5C3348' },
+  { id: 5, name: 'Bridal Lehenga', category: 'indian', image: '/gallery/img-5.webp', color: '#C2185B' },
+  { id: 6, name: 'Evening Gown', category: 'gown', image: '/gallery/img-6.webp', color: '#1A0A0F' },
+  { id: 7, name: 'Indo-Western Set', category: 'fusion', image: '/gallery/img-7.webp', color: '#9B7B8A' },
+  { id: 8, name: 'Tiered Frock', category: 'western', image: '/gallery/img-8.webp', color: '#E8D5A3' },
+  { id: 9, name: 'Churidar Set', category: 'indian', image: '/gallery/img-9.webp', color: '#3A1F2A' },
+  { id: 10, name: 'Cocktail Gown', category: 'gown', image: '/gallery/img-10.webp', color: '#8B2252' },
+  { id: 11, name: 'Fusion Anarkali', category: 'fusion', image: '/gallery/img-11.webp', color: '#C9A96E' },
+  { id: 12, name: 'Party Dress', category: 'western', image: '/gallery/img-12.webp', color: '#5C3348' }
 ];
 
 export default function Gallery() {
@@ -184,6 +185,10 @@ export default function Gallery() {
                 data-category={item.category}
                 style={{ display: isVisible ? 'block' : 'none' }}
                 onClick={() => openLightbox(item)}
+                onKeyDown={(e) => e.key === 'Enter' && openLightbox(item)}
+                tabIndex="0"
+                role="button"
+                aria-label={`View ${item.name}`}
               >
                 <Atropos
                   activeOffset={40}
@@ -195,12 +200,12 @@ export default function Gallery() {
                 >
                   <div className="gallery-item-inner" data-atropos-offset="-5">
                     <div className="gallery-img-wrap" data-atropos-offset="0">
-                      <img
-                        src={`${item.image}?v=2`}
-                        alt={item.name}
-                        loading="lazy"
-                        decoding="async"
-                      />
+                        <img
+                          src={`${item.image}?v=2`}
+                          alt={`Custom ${item.name} Design - Stitches Coimbatore`}
+                          loading="lazy"
+                          decoding="async"
+                        />
                     </div>
                     <div className="gallery-overlay" data-atropos-offset="5">
                       <span className="gallery-category" data-atropos-offset="10">{item.category}</span>
@@ -215,44 +220,47 @@ export default function Gallery() {
       </section>
 
       {/* ═══════════ GALLERY LIGHTBOX ═══════════ */}
-      <div 
-        id="lightbox" 
-        className={`lightbox ${lightboxOpen ? 'active' : ''}`} 
-        aria-hidden={!lightboxOpen} 
-        role="dialog" 
-        aria-label="Image viewer"
-        onClick={(e) => {
-          if (e.target.id === 'lightbox') closeLightbox();
-        }}
-      >
-        <button className="lightbox-close" id="lightbox-close" aria-label="Close lightbox" onClick={closeLightbox}>
-          <svg viewBox="0 0 24 24" width="28" height="28">
-            <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" strokeWidth="2"/>
-            <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" strokeWidth="2"/>
-          </svg>
-        </button>
-        <div className="lightbox-content" id="lightbox-content">
-          {lightboxData && (
-            <>
-              <div className="lightbox-image-wrap">
-                <img
-                  src={lightboxData.image}
-                  alt={lightboxData.name}
-                  style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: '8px' }}
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    e.target.parentElement.style.background = `linear-gradient(135deg, #8B2252, #C9A96E)`;
-                  }}
-                />
-              </div>
-              <div className="lightbox-info">
-                <span className="lightbox-category">{lightboxData.category}</span>
-                <h3 className="lightbox-name">{lightboxData.name}</h3>
-              </div>
-            </>
-          )}
+      <FocusTrap active={lightboxOpen} focusTrapOptions={{ fallbackFocus: '#lightbox' }}>
+        <div 
+          id="lightbox" 
+          tabIndex="-1"
+          className={`lightbox ${lightboxOpen ? 'active' : ''}`} 
+          aria-hidden={!lightboxOpen} 
+          role="dialog" 
+          aria-label="Image viewer"
+          onClick={(e) => {
+            if (e.target.id === 'lightbox') closeLightbox();
+          }}
+        >
+          <button className="lightbox-close" id="lightbox-close" aria-label="Close lightbox" onClick={closeLightbox}>
+            <svg viewBox="0 0 24 24" width="28" height="28">
+              <line x1="4" y1="4" x2="20" y2="20" stroke="currentColor" strokeWidth="2"/>
+              <line x1="20" y1="4" x2="4" y2="20" stroke="currentColor" strokeWidth="2"/>
+            </svg>
+          </button>
+          <div className="lightbox-content" id="lightbox-content">
+            {lightboxData && (
+              <>
+                <div className="lightbox-image-wrap">
+                  <img
+                    src={lightboxData.image}
+                    alt={`${lightboxData.name} - Detailed View`}
+                    style={{ maxWidth: '90vw', maxHeight: '80vh', objectFit: 'contain', borderRadius: '8px' }}
+                    onError={(e) => {
+                      e.target.style.display = 'none';
+                      e.target.parentElement.style.background = `linear-gradient(135deg, #8B2252, #C9A96E)`;
+                    }}
+                  />
+                </div>
+                <div className="lightbox-info">
+                  <span className="lightbox-category">{lightboxData.category}</span>
+                  <h3 className="lightbox-name">{lightboxData.name}</h3>
+                </div>
+              </>
+            )}
+          </div>
         </div>
-      </div>
+      </FocusTrap>
     </div>
   );
 }
