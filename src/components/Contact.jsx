@@ -16,6 +16,8 @@ export default function Contact() {
     phone: '',
     occasion: '',
     style: '',
+    date: '',
+    time: '',
     message: ''
   });
   const [errors, setErrors] = useState({});
@@ -107,7 +109,7 @@ export default function Contact() {
     e.preventDefault();
     let isValid = true;
     
-    const requiredFields = ['name', 'phone', 'occasion', 'style'];
+    const requiredFields = ['name', 'phone', 'occasion', 'style', 'date', 'time'];
     requiredFields.forEach(field => {
       if (!formData[field] || !formData[field].trim()) {
         isValid = false;
@@ -126,9 +128,10 @@ export default function Contact() {
     if (!isValid) return;
 
     const whatsappText = encodeURIComponent(
-      `Hi! I'd like to enquire about a custom outfit.\n\n` +
+      `Hi! I'd like to book a consultation.\n\n` +
       `Name: ${formData.name}\n` +
       `Phone: ${formData.phone}\n` +
+      `Date: ${formData.date} at ${formData.time}\n` +
       `Occasion: ${formData.occasion}\n` +
       `Style: ${formData.style}\n` +
       `Details: ${formData.message || 'Not specified'}`
@@ -137,14 +140,14 @@ export default function Contact() {
     const whatsappUrl = `https://wa.me/${WHATSAPP_NUMBER}?text=${whatsappText}`;
 
     fireConfetti();
-    showToast('✨ Private consultation request ready! Redirecting to WhatsApp...');
+    showToast('✨ Consultation booked! Redirecting to WhatsApp to confirm...');
 
     setTimeout(() => {
       window.open(whatsappUrl, '_blank');
     }, 1500);
 
     setTimeout(() => {
-      setFormData({ name: '', phone: '', occasion: '', style: '', message: '' });
+      setFormData({ name: '', phone: '', occasion: '', style: '', date: '', time: '', message: '' });
       setErrors({});
     }, 2000);
   };
@@ -214,6 +217,18 @@ export default function Contact() {
                 <label htmlFor="form-phone">Phone / WhatsApp</label>
                 <input type="tel" id="form-phone" name="phone" placeholder="+91 98765 43210" value={formData.phone} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required aria-invalid={!!errors.phone} aria-describedby={errors.phone ? "phone-error" : undefined} />
                 {errors.phone && <span id="phone-error" className="error-message" style={{color: '#ff4d4d', fontSize: '0.8rem', marginTop: '0.2rem', display: 'block'}}>Valid phone number required</span>}
+              </div>
+            </div>
+            <div className="form-row">
+              <div className={getInputClass('date')} data-reveal="true">
+                <label htmlFor="form-date">Preferred Date</label>
+                <input type="date" id="form-date" name="date" value={formData.date} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required aria-invalid={!!errors.date} aria-describedby={errors.date ? "date-error" : undefined} />
+                {errors.date && <span id="date-error" className="error-message" style={{color: '#ff4d4d', fontSize: '0.8rem', marginTop: '0.2rem', display: 'block'}}>Date is required</span>}
+              </div>
+              <div className={getInputClass('time')} data-reveal="true">
+                <label htmlFor="form-time">Preferred Time</label>
+                <input type="time" id="form-time" name="time" value={formData.time} onChange={handleChange} onFocus={handleFocus} onBlur={handleBlur} required aria-invalid={!!errors.time} aria-describedby={errors.time ? "time-error" : undefined} />
+                {errors.time && <span id="time-error" className="error-message" style={{color: '#ff4d4d', fontSize: '0.8rem', marginTop: '0.2rem', display: 'block'}}>Time is required</span>}
               </div>
             </div>
             <div className={getInputClass('occasion')} data-reveal="true">

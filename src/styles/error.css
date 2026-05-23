@@ -1,0 +1,130 @@
+.error-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--dark-bg);
+  color: var(--white);
+  padding: 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.error-bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 60vw;
+  height: 60vw;
+  background: radial-gradient(circle, rgba(233, 30, 99, 0.05) 0%, rgba(201, 169, 110, 0.05) 40%, rgba(26, 10, 15, 0) 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.error-content {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-svg {
+  width: 120px;
+  height: 120px;
+  margin-bottom: 2rem;
+  animation: float 4s ease-in-out infinite;
+}
+
+.broken-thread {
+  stroke-dasharray: 10 10;
+  animation: dash 2s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: 20;
+  }
+}
+
+.error-label {
+  font-family: var(--font-heading);
+  color: var(--rose);
+  font-size: 0.9rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.error-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  color: var(--gold);
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  font-weight: 400;
+}
+
+.error-title em {
+  font-family: var(--font-body);
+  font-style: italic;
+  font-weight: 300;
+}
+
+.error-message {
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  color: var(--text-light);
+  opacity: 0.8;
+  line-height: 1.6;
+  margin-bottom: 3rem;
+}
+
+.btn-reload {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 2.5rem;
+  background: transparent;
+  color: var(--gold);
+  border: 1px solid var(--gold);
+  border-radius: 50px;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.4s var(--ease-out-expo);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-reload::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.4s var(--ease-out-expo);
+  z-index: 0;
+}
+
+.btn-reload:hover::before {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.btn-reload span {
+  position: relative;
+  z-index: 1;
+  transition: color 0.4s ease;
+}
+
+.btn-reload:hover span {
+  color: var(--dark-bg);
+}

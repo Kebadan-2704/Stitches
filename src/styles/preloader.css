@@ -1,120 +1,64 @@
 /* ═══════════════════════════════════════════════════════════════
-   STITCHES — Preloader
-   Fullscreen loading overlay with sewing-needle SVG draw,
-   thread path animation, logo reveal, and elegant exit.
+   STITCHES — Preloader (Minimal & Elegant)
    ═══════════════════════════════════════════════════════════════ */
 
-/* ── Container ───────────────────────────────────────────────── */
 #preloader {
   position: fixed;
   inset: 0;
   z-index: var(--z-preloader);
-  background: var(--dark);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: clip-path 1s var(--ease-out-expo),
-              opacity 0.6s var(--ease-out-expo) 0.8s;
-  clip-path: circle(150% at 50% 50%);
-  opacity: 1;
   pointer-events: all;
+  background: var(--dark);
 }
 
 #preloader.loaded {
-  clip-path: circle(0% at 50% 50%);
   opacity: 0;
   pointer-events: none;
 }
 
-/* ── Inner Wrapper ───────────────────────────────────────────── */
+.preloader-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, rgba(201, 169, 110, 0.1) 0%, var(--dark) 70%);
+  opacity: 0;
+}
+
 .preloader-inner {
+  position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 32px;
-  position: relative;
 }
 
-/* ── Needle SVG ──────────────────────────────────────────────── */
-.preloader-needle {
-  width: 80px;
-  height: 80px;
-  opacity: 0;
-  animation: fadeIn 0.4s var(--ease-out-quart) 0.3s forwards;
-}
-
-.preloader-needle .needle-path {
-  fill: none;
-  stroke: var(--gold);
-  stroke-width: 1.5;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: var(--needle-length, 200);
-  stroke-dashoffset: var(--needle-length, 200);
-  animation: needleDraw 1.8s var(--ease-in-out-cubic) 0.5s forwards;
-}
-
-/* ── Thread Path ─────────────────────────────────────────────── */
-.preloader-thread {
-  width: 120px;
-  height: 40px;
-  opacity: 0;
-  animation: fadeIn 0.3s var(--ease-out-quart) 1s forwards;
-}
-
-.preloader-thread .thread-path {
-  fill: none;
-  stroke: var(--gold-light);
-  stroke-width: 1;
-  stroke-linecap: round;
-  stroke-dasharray: 400;
-  stroke-dashoffset: 400;
-  animation: strokeFill 1.6s var(--ease-in-out-cubic) 1.2s forwards;
-}
-
-/* override stroke var for thread */
-.preloader-thread .thread-path {
-  --dash-length: 400;
-}
-
-/* ── Logo Text ───────────────────────────────────────────────── */
-.preloader-logo {
-  font-family: var(--font-display);
-  font-size: clamp(2rem, 5vw, 3.2rem);
-  color: var(--gold);
-  opacity: 0;
-  transform: translateY(12px);
-  animation: fadeUp 0.8s var(--ease-out-expo) 2s forwards;
-  letter-spacing: 1px;
-  white-space: nowrap;
-}
-
-/* ── Progress Bar ────────────────────────────────────────────── */
-.preloader-progress {
+.preloader-ring-wrapper {
   position: absolute;
-  bottom: 0;
-  left: 0;
+  width: 160px;
+  height: 160px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.preloader-ring {
   width: 100%;
-  height: 2px;
-  background: var(--white-05);
+  height: 100%;
+  transform-origin: center;
+}
+
+.preloader-logo {
+  position: relative;
+  z-index: 2;
   overflow: hidden;
 }
 
-.preloader-progress-bar {
-  height: 100%;
-  width: 0%;
-  background: var(--gradient-gold);
-  transition: width 0.3s var(--ease-out-quart);
-}
-
-/* ── Decorative Grain Inside Preloader ───────────────────────── */
-.preloader-grain {
-  position: absolute;
-  inset: 0;
-  opacity: 0.04;
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-  background-size: 200px 200px;
-  animation: grain 8s steps(10) infinite;
+.preloader-logo-text {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  color: var(--gold);
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-shadow: 0 0 20px rgba(201, 169, 110, 0.4);
 }

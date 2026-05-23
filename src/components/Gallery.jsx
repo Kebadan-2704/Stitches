@@ -7,51 +7,50 @@ import Atropos from 'atropos/react';
 import 'atropos/css';
 import FocusTrap from 'focus-trap-react';
 import { isReducedMotion } from '../js/utils';
+import { fetchGalleryImages } from '../lib/cms-mock';
 
 gsap.registerPlugin(ScrollTrigger, Flip);
-
-const galleryItems = [
-  { id: 1, name: 'Emerald Lehenga', category: 'indian', image: '/gallery/img-1.webp', color: '#2E7D32' },
-  { id: 2, name: 'Silk Gown', category: 'gown', image: '/gallery/img-2.webp', color: '#8B2252' },
-  { id: 3, name: 'Fusion Saree Dress', category: 'fusion', image: '/gallery/img-3.webp', color: '#C9A96E' },
-  { id: 4, name: 'A-Line Midi', category: 'western', image: '/gallery/img-4.webp', color: '#5C3348' },
-  { id: 5, name: 'Bridal Lehenga', category: 'indian', image: '/gallery/img-5.webp', color: '#C2185B' },
-  { id: 6, name: 'Evening Gown', category: 'gown', image: '/gallery/img-6.webp', color: '#1A0A0F' },
-  { id: 7, name: 'Indo-Western Set', category: 'fusion', image: '/gallery/img-7.webp', color: '#9B7B8A' },
-  { id: 8, name: 'Tiered Frock', category: 'western', image: '/gallery/img-8.webp', color: '#E8D5A3' },
-  { id: 9, name: 'Churidar Set', category: 'indian', image: '/gallery/img-9.webp', color: '#3A1F2A' },
-  { id: 10, name: 'Cocktail Gown', category: 'gown', image: '/gallery/img-10.webp', color: '#8B2252' },
-  { id: 11, name: 'Fusion Anarkali', category: 'fusion', image: '/gallery/img-11.webp', color: '#C9A96E' },
-  { id: 12, name: 'Party Dress', category: 'western', image: '/gallery/img-12.webp', color: '#5C3348' }
-];
 
 export default function Gallery() {
   const containerRef = useRef(null);
   const gridRef = useRef(null);
   const [filter, setFilter] = useState('all');
+  const [galleryItems, setGalleryItems] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [lightboxData, setLightboxData] = useState(null);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const flipStateRef = useRef(null);
   const isAnimatingClose = useRef(false);
 
+  useEffect(() => {
+    const loadItems = async () => {
+      const items = await fetchGalleryImages();
+      setGalleryItems(items);
+      setLoading(false);
+    };
+    loadItems();
+  }, []);
+
   useGSAP(() => {
-    if (!isReducedMotion() && gridRef.current) {
+    if (!loading && !isReducedMotion() && gridRef.current) {
       const gridItems = gsap.utils.toArray('.gallery-item', gridRef.current);
-      gsap.from(gridItems, {
-        y: 60,
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.6,
-        stagger: 0.08,
-        ease: 'power3.out',
-        scrollTrigger: {
-          trigger: gridRef.current,
-          start: 'top 85%',
-          toggleActions: 'play none none none',
-        },
-      });
+      if (gridItems.length > 0) {
+        gsap.from(gridItems, {
+          y: 60,
+          opacity: 0,
+          scale: 0.95,
+          duration: 0.6,
+          stagger: 0.08,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        });
+      }
     }
-  }, { scope: containerRef });
+  }, { scope: containerRef, dependencies: [loading] });
 
   useGSAP(() => {
     if (flipStateRef.current && !isReducedMotion()) {

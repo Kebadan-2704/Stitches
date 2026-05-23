@@ -12,6 +12,7 @@ export default function Nav() {
   const containerRef = useRef();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isHidden, setIsHidden] = useState(false);
   const lenis = useLenis();
 
   useGSAP(() => {
@@ -20,7 +21,15 @@ export default function Nav() {
       start: 'top top',
       end: 'bottom bottom',
       onUpdate: (self) => {
-        setIsScrolled(self.scroll() > 60);
+        const currentScroll = self.scroll();
+        setIsScrolled(currentScroll > 60);
+        
+        // Hide navbar when scrolling down, show when scrolling up
+        if (currentScroll > 200 && self.direction === 1) {
+          setIsHidden(true);
+        } else {
+          setIsHidden(false);
+        }
       },
     });
   }, { scope: containerRef });
@@ -97,7 +106,7 @@ export default function Nav() {
   return (
     <div ref={containerRef}>
       <header>
-        <nav id="navbar" className={isScrolled ? 'scrolled' : ''} aria-label="Main navigation">
+        <nav id="navbar" className={`${isScrolled ? 'scrolled' : ''} ${isHidden ? 'hidden' : ''}`} aria-label="Main navigation">
           <a href="#hero" className="nav-logo" onClick={(e) => handleNavLinkClick(e, '#hero')}>Stitches</a>
           <ul className="nav-links">
             <li><a href="#about" onClick={(e) => handleNavLinkClick(e, '#about')}>About</a></li>

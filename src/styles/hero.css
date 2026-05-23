@@ -92,26 +92,25 @@
 }
 
 .hero-subtitle-wrap {
-  min-height: 2.5rem;
+  position: relative;
+  height: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-bottom: var(--space-xl);
   opacity: 0;
   animation: fadeIn 0.8s var(--ease-out-expo) 3.4s forwards;
 }
 
-.hero-subtitle-wrap span {
+.subtitle-item {
+  position: absolute;
+  opacity: 0;
   font-family: var(--font-heading);
   font-size: clamp(1.2rem, 3vw, 1.8rem);
   font-weight: 300;
   color: var(--gold-light);
   letter-spacing: 2px;
-}
-
-.typed-cursor {
-  color: var(--gold) !important;
-  font-weight: 300;
-  font-size: 1.5rem;
-  opacity: 1;
-  animation: pulse 1s infinite;
+  white-space: nowrap;
 }
 
 .hero-divider {
@@ -264,6 +263,40 @@
 .thread-1 { animation-duration: 15s; }
 .thread-2 { animation-duration: 20s; stroke: rgba(233, 30, 99, 0.5); /* Rose */ }
 .thread-3 { animation-duration: 25s; stroke: rgba(201, 169, 110, 0.3); }
+
+/* ═══════════ FLOATING COUTURE PARTICLES ═══════════ */
+.couture-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 1; /* Below content, above stitches */
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.couture-particle {
+  position: absolute;
+  bottom: -60px;
+  animation: floatUp linear infinite;
+  will-change: transform;
+}
+
+.couture-particle svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 10px currentColor);
+  animation: spin var(--rot-speed) linear infinite;
+  will-change: transform;
+}
+
+@keyframes floatUp {
+  0% { transform: translateY(100px); }
+  100% { transform: translateY(-120vh); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
 
 @keyframes sewThread {
   from { stroke-dashoffset: 1000; }

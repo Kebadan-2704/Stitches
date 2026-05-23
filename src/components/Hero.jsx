@@ -1,8 +1,7 @@
-import { useRef, useEffect } from 'react';
+import { useRef } from 'react';
 import { useGSAP } from '@gsap/react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import Typed from 'typed.js';
 import Splitting from 'splitting';
 import { scrambleText } from '../js/text-animations';
 import { isMobile, isReducedMotion } from '../js/utils';
@@ -11,30 +10,6 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
   const containerRef = useRef();
-
-  // Typed.js
-  useEffect(() => {
-    const typedEl = document.getElementById('hero-typed');
-    if (!typedEl) return;
-    
-    const typedInstance = new Typed('#hero-typed', {
-      strings: [
-        'Where every thread tells your story',
-        'Bespoke Indian & Western Couture',
-        'Handcrafted in Coimbatore',
-      ],
-      typeSpeed: 50,
-      backSpeed: 30,
-      backDelay: 2000,
-      loop: true,
-      cursorChar: '|',
-      startDelay: isReducedMotion() ? 0 : 1500,
-    });
-
-    return () => {
-      typedInstance.destroy();
-    };
-  }, []);
 
   // GSAP Animations
   useGSAP(() => {
@@ -69,6 +44,19 @@ export default function Hero() {
     }
 
     if (!isReducedMotion()) {
+      // Subtitle Crossfade Loop
+      const subtitles = gsap.utils.toArray('.subtitle-item');
+      if (subtitles.length > 0) {
+        const tl = gsap.timeline({ repeat: -1 });
+        subtitles.forEach((item, index) => {
+          tl.fromTo(item, 
+            { y: 20, opacity: 0, scale: 0.98 },
+            { y: 0, opacity: 1, scale: 1, duration: 1.2, ease: 'power2.out' }
+          )
+          .to(item, { y: -20, opacity: 0, scale: 1.02, duration: 1.2, ease: 'power2.in', delay: 2.5 });
+        });
+      }
+
       // Background layers parallax
       const layers = [
         { selector: '.hero-bg-1', speed: 0.3 },
@@ -184,18 +172,74 @@ export default function Hero() {
           </svg>
         </div>
 
+        {/* ═══════════ FLOATING COUTURE PARTICLES ═══════════ */}
+        <div className="couture-particles" aria-hidden="true">
+          {[...Array(30)].map((_, i) => {
+            const type = i % 3; // 0: button, 1: needle, 2: thread
+            const isRose = i % 2 === 0;
+            const color = isRose ? '#E91E63' : '#C9A96E';
+            const size = Math.random() * 25 + 15; // 15px to 40px
+            const left = Math.random() * 100;
+            const duration = Math.random() * 20 + 15; // 15s to 35s
+            const delay = Math.random() * -35; // Random start time
+            const rotationSpeed = (Math.random() * 20 + 10) * (Math.random() > 0.5 ? 1 : -1);
+
+            return (
+              <div 
+                key={i} 
+                className="couture-particle"
+                style={{
+                  left: `${left}%`,
+                  width: `${size}px`,
+                  height: `${size}px`,
+                  animationDuration: `${duration}s`,
+                  animationDelay: `${delay}s`,
+                  opacity: Math.random() * 0.25 + 0.1,
+                  '--rot-speed': `${rotationSpeed}s`
+                }}
+              >
+                {type === 0 && (
+                  <svg viewBox="0 0 100 100">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke={color} strokeWidth="6" />
+                    <circle cx="50" cy="50" r="28" fill="none" stroke={color} strokeWidth="2" opacity="0.5"/>
+                    <circle cx="35" cy="35" r="6" fill={color} />
+                    <circle cx="65" cy="35" r="6" fill={color} />
+                    <circle cx="35" cy="65" r="6" fill={color} />
+                    <circle cx="65" cy="65" r="6" fill={color} />
+                  </svg>
+                )}
+                {type === 1 && (
+                  <svg viewBox="0 0 100 100">
+                    <line x1="50" y1="10" x2="50" y2="90" stroke={color} strokeWidth="4" strokeLinecap="round"/>
+                    <ellipse cx="50" cy="8" rx="4" ry="7" fill="none" stroke={color} strokeWidth="3"/>
+                  </svg>
+                )}
+                {type === 2 && (
+                  <svg viewBox="0 0 100 100">
+                    <path d="M 10 20 Q 50 -10 90 40 T 10 80" fill="none" stroke={color} strokeWidth="4" strokeDasharray="8 8" />
+                  </svg>
+                )}
+              </div>
+            );
+          })}
+        </div>
+
         <div className="hero-content">
           <p className="hero-tagline" data-splitting="true">Coimbatore's Custom Couture House</p>
           <h1 className="hero-title" id="hero-title">Stitches</h1>
+          
           <div className="hero-subtitle-wrap">
-            <span id="hero-typed" aria-hidden="true"></span>
-            <span className="visually-hidden">Where every thread tells your story. Bespoke Indian & Western Couture. Handcrafted in Coimbatore.</span>
+            <span className="subtitle-item">Where every thread tells your story</span>
+            <span className="subtitle-item">Bespoke Indian & Western Couture</span>
+            <span className="subtitle-item">Handcrafted in Coimbatore</span>
           </div>
+
           <div className="hero-divider">
             <span className="hero-div-line"></span>
             <span className="hero-div-text">Indian &amp; Western · Bespoke · Handcrafted</span>
             <span className="hero-div-line"></span>
           </div>
+          
           <div className="hero-ctas">
             <a href="#gallery" className="hero-cta" id="cta-gallery" data-magnetic="true">
               <span>View Collection</span>

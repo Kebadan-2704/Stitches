@@ -7,6 +7,8 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import 'swiper/css'
 import 'swiper/css/effect-coverflow'
 import 'swiper/css/pagination'
+import 'splitting/dist/splitting.css'
+import 'splitting/dist/splitting-cells.css'
 
 // Register GSAP plugins globally
 gsap.registerPlugin(ScrollTrigger)
